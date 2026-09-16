@@ -1,0 +1,12 @@
+{
+  "name": "sl-process-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard de performance de Google Ads da SL Process — upload mensal de planilhas e relatório gerado automaticamente. Site estático (Material Design 3), pronto para deploy na Vercel.",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "verify": "node verify.js"
+  },
+  "keywords": ["google-ads", "dashboard", "sl-process", "vercel", "material-design"],
+  "license": "UNLICENSED"
+}
