@@ -71,10 +71,15 @@ o exemplo é substituído pelos seus dados.
 
 1. Crie um repositório no GitHub e suba esta pasta.
 2. Em [vercel.com](https://vercel.com) → **Add New… → Project** → importe o repositório.
-3. Em *Framework Preset*, selecione **Other** (é um site estático).
-   - *Build Command:* deixe em branco
-   - *Output Directory:* deixe em branco (a raiz já contém o `index.html`)
+3. **Não precisa configurar nada**: o arquivo `vercel.json` já define o build
+   (`node build.js`) e a pasta de saída (`public`). Deixe as opções como vieram.
 4. Clique em **Deploy**. Em segundos você terá a URL pública.
+
+> **Já tentou e deu erro “No Output Directory named 'public' found”?** Isso acontecia
+> na versão anterior porque o build gravava na raiz. Esta versão já grava em `public/`
+> e traz o `vercel.json` correto — basta atualizar o repositório (substituir os arquivos
+> e dar `git push`) que a Vercel reconstrói sozinha. Se preferir corrigir no painel sem
+> mexer no código: **Project → Settings → Build & Output Settings → Output Directory = `public`**.
 
 A cada `git push`, a Vercel republica automaticamente.
 
@@ -101,15 +106,17 @@ painel da Vercel (Deployments → *drag and drop*). O `index.html` já é sufici
 
 ```
 sl-process-dashboard/
-├── index.html          ← o dashboard pronto (autossuficiente) — é o que a Vercel serve
-├── vercel.json         ← configuração de hospedagem estática
+├── public/
+│   └── index.html      ← saída do build — é o que a Vercel publica
+├── index.html          ← cópia na raiz para abrir localmente (clique duplo)
+├── vercel.json         ← build + pasta de saída (public) já configurados
 ├── package.json        ← scripts de build/verificação
 ├── data/               ← os 11 CSVs de exemplo (referência do formato esperado)
 ├── src/
-│   ├── styles.css      ← identidade visual
-│   └── app.js          ← interface, gráficos (SVG) e motor de insights
+│   ├── styles.css      ← identidade visual (Material 3, claro/escuro)
+│   └── app.js          ← interface, filtros, gráficos e motor de insights
 ├── parser.core.js      ← leitor de CSV do Google Ads (formato pt-BR)
-├── build.js            ← gera o index.html a partir de src/ + data/
+├── build.js            ← gera public/index.html a partir de src/ + data/
 └── verify.js           ← testa o parser contra os CSVs de data/
 ```
 

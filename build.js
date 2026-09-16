@@ -46,6 +46,11 @@ ${app}
 </body>
 </html>`;
 
-fs.writeFileSync(path.join(root,'index.html'), html, 'utf8');
+// Saída em public/ (diretório que a Vercel serve). Mantém também uma cópia
+// em index.html na raiz para abrir localmente sem servidor.
+const outDir = path.join(root, 'public');
+fs.mkdirSync(outDir, { recursive: true });
+fs.writeFileSync(path.join(outDir, 'index.html'), html, 'utf8');
+fs.writeFileSync(path.join(root, 'index.html'), html, 'utf8');
 const kb = (Buffer.byteLength(html)/1024).toFixed(0);
-console.log('index.html gerado ('+kb+' KB) · '+Object.keys(sample).length+' CSVs embutidos.');
+console.log('public/index.html gerado ('+kb+' KB) · '+Object.keys(sample).length+' CSVs embutidos.');
